@@ -1,6 +1,8 @@
 ---
-title: "CLEF eHealth Task 2 - (IMS) Unipd"
-output: html_document
+title: "CLEF eHealth Task 2, Replication Track - (IMS) Unipd"
+author: Giorgio Maria Di Nunzio
+date: May 12, 2017
+output: github_document
 ---
 
 In this document, we describe the procedure to replicate the experiments of the group IMS Unipd who participated to the CLEF eHealth 2017 Task 1 Multilingual Information Extraction - ICD10 coding and, in particular, the "English raw dataset" subtask.

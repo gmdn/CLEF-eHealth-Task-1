@@ -1,33 +1,117 @@
-Untitled
+CLEF eHealth Task 2, Replication Track - (IMS) Unipd
 ================
+Giorgio Maria Di Nunzio
+May 12, 2017
 
-GitHub Documents
-----------------
+In this document, we describe the procedure to replicate the experiments of the group IMS Unipd who participated to the CLEF eHealth 2017 Task 1 Multilingual Information Extraction - ICD10 coding and, in particular, the "English raw dataset" subtask.
 
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+Software Installation
+---------------------
 
-Including Code
---------------
+The system is written in R, therefore, it is platform independent (apart from tiny adjustment that may be needed if you access the filesystem, see later in the documentation).
 
-You can include R code in the document as follows:
+1.  First, you need to download R from the [Comprehensive R Archive Network](https://cran.r-project.org). We are currently using version 3.4.0 (released on 2017/04/21).
 
-``` r
-summary(cars)
+2.  Then, download the [RStudio Desktop](https://www.rstudio.com/products/rstudio/download2/). We suggest to download the installer of the Open Source License, unless you prefer to download the Zip/tar archives. We are currently using version 1.10.143 (released on 2017/04/19)
+
+3.  Download zip file with source code
+
+Prepare Data Files
+------------------
+
+Before running the code, you need to place the data files of the CLEF eHealth Task 1 in the directory where the program expects to find them. We assume that you already have the zip file provided by the organizers of Task 1; therefore, you just need to extract the content of the file in the directory **data** of the R project. (show directory structure for clarity) At the end, we expect to have the following subdirectories and files in the data folder:
+
+``` yaml
+---
+data:
+    CLEFeHealth2017Task1_test_EN:
+        raw:
+            corpus:
+                CausesBrutes_EN_test.csv
+                Ident_EN_test.csv
+            README.txt
+    CLEFeHealth2017Task1_training_EN:
+        raw:
+            corpus:
+                CausesBrutes_EN_training.csv
+                CausesCalculees_EN_training.csv
+                Ident_EN_training.csv
+            dictionary:
+                AmericanDictionary.csv
+            eval:
+                clefehealthTask12017_plainCertifeval.pl
+            README.txt
+---
 ```
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+Running Source Code
+-------------------
 
-Including Plots
----------------
+After you decompress the zip file, in the "source" directory you will find the **english\_raw.Rproj** file that contains the whole RStudio project that we are going to use. You can either double click on the file or open RSTudio and choose "Open Project..." from the File menu.
 
-You can also embed plots, for example:
+1.  The first we need to do is to install the R packages that are required to run the source code. Write in the RStudio Console the following line (and press Enter)
 
-![](README_files/figure-markdown_github/pressure-1.png)
+``` yaml
+source("./install_packages/install.R")
+```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+1.  After setting up the packages, we need to index the dictionary of the training data.
+
+Write in the RStudio Console the following line (and press Enter)
+
+``` yaml
+source("./index/index_dictionary.R")
+```
+
+**IMPORTANT** If you are using the original version of the american dictionary that contains extra semicolons, you may encounter the following error during the scan of the file
+
+``` yaml
+Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : 
+scan() expected 'a real', got 'T918' 
+```
+
+If this is the case, please contat us (giorgiomaria dot dinunzio at unipd dot it) and we will provide the correct file.
+
+At the end of this phase that will take a minute or so, you will have two new files in the **index** folder named **index\_EN\_binary.RData** and **index\_EN\_tfidf.RData**
+
+1.  Now we are ready to set up the test runs. Before running the **run\_build\_test.R** script, open it in the Source panel of RStudio and comment either line 7 or line 8 according to the type of weight you want to use for the run ("binary" or "tfidf").
+
+``` yaml
+# set the type of weighting scheme for this run, choose either "binary" or "tfidf"
+# you can comment/decomment one of the following lines
+weight <- "binary"
+#weight <- "tfidf"
+```
+
+Once you have chosen the type of weight, run the script
+
+``` yaml
+source("./run_build_test.R")
+```
+
+At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1\_binary.csv** or **Unipd-run2\_tfidf.csv**.
+
+1.  Finally, we can classify each line of the run we have prepared. As we did before, we need to set the type of weight before running the **run\_classify\_test.R** script. Comment line 10 or 11 as appropriate and then run
+
+``` yaml
+source("./run_classify_test.R")
+```
+
+When the scripts ends, you should see on the console a warning message:
+
+``` yaml
+There were 50 or more warnings (use warnings() to see the first 50)
+```
+
+This is actually correct since, after submitting the official run, we discovered a bug in the code that prevented the correct use of the TfIdf weight. We annotated the source code of the file **run\_classify\_test.R** with a comment on line 22 and 61
+
+``` yaml
+
+22   #load("./index/index_EN_tfidf.RData") #### MISTAKE HERE!
+23   load("./index/index_EN_tf.RData")
+...
+61    #icd <- classify_tfidf(tokens, tdm_tfidf, american_dictionary) #### MISTAKE HERE!
+62    icd <- classify_tfidf(tokens, tdm_tf, american_dictionary)
+```
+
+At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1.csv** or **Unipd-run2.csv**. These are the files that we produced for the CLEF eHealth Task 1.
