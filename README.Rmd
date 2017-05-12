@@ -79,10 +79,10 @@ At the end of this phase that will take a minute or so, you will have three new 
 3. Now we are ready to set up the test runs. Before running the **run_build_test.R** script, open it in the Source panel of RStudio and comment either line 7 or line 8 according to the type of weight you want to use for the run ("binary" or "tfidf").
 
 ```yaml
-# set the type of weighting scheme for this run, choose either "binary" or "tfidf"
-# you can comment/decomment one of the following lines
-weight <- "binary"
-#weight <- "tfidf"
+5  # set the type of weighting scheme for this run, choose either "binary" or "tfidf"
+6  # you can comment/decomment one of the following lines
+7  weight <- "binary"
+8  #weight <- "tfidf"
 ```
 
 Once you have chosen the type of weight, run the script 
