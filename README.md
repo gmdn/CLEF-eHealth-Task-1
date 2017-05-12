@@ -1,7 +1,7 @@
 CLEF eHealth Task 2, Replication Track - (IMS) Unipd
 ================
 Giorgio Maria Di Nunzio
-May 12, 2017
+5/12/2017
 
 In this document, we describe the procedure to replicate the experiments of the group IMS Unipd who participated to the CLEF eHealth 2017 Task 1 Multilingual Information Extraction - ICD10 coding and, in particular, the "English raw dataset" subtask.
 
@@ -14,7 +14,7 @@ The system is written in R, therefore, it is platform independent (apart from ti
 
 2.  Then, download the [RStudio Desktop](https://www.rstudio.com/products/rstudio/download2/). We suggest to download the installer of the Open Source License, unless you prefer to download the Zip/tar archives. We are currently using version 1.10.143 (released on 2017/04/19)
 
-3.  Download zip file with source code
+3.  **Clone or download** source code provided with this repository.
 
 Prepare Data Files
 ------------------
@@ -72,7 +72,7 @@ scan() expected 'a real', got 'T918'
 
 If this is the case, please contat us (giorgiomaria dot dinunzio at unipd dot it) and we will provide the correct file.
 
-At the end of this phase that will take a minute or so, you will have two new files in the **index** folder named **index\_EN\_binary.RData** and **index\_EN\_tfidf.RData**
+At the end of this phase that will take a minute or so, you will have three new files in the **index** folder named **index\_EN\_binary.RData**, **index\_EN\_tf.RData**, and **index\_EN\_tfidf.RData**.
 
 1.  Now we are ready to set up the test runs. Before running the **run\_build\_test.R** script, open it in the Source panel of RStudio and comment either line 7 or line 8 according to the type of weight you want to use for the run ("binary" or "tfidf").
 
