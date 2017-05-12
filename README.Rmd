@@ -1,7 +1,7 @@
 ---
 title: "CLEF eHealth Task 2, Replication Track - (IMS) Unipd"
 author: Giorgio Maria Di Nunzio
-date: May 12, 2017
+date: "5/12/2017"
 output: github_document
 ---
 
@@ -16,7 +16,7 @@ The system is written in R, therefore, it is platform independent (apart from ti
 
 2. Then, download the [RStudio Desktop](https://www.rstudio.com/products/rstudio/download2/). We suggest to download the installer of the Open Source License, unless you prefer to download the Zip/tar archives. We are currently using version 1.10.143 (released on 2017/04/19)
 
-3. Download zip file with source code
+3. **Clone or download** source code provided with this repository.
 
 
 ## Prepare Data Files
