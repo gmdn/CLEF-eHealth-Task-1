@@ -1,5 +1,5 @@
 ---
-title: "CLEF eHealth Task 2, Replication Track - (IMS) Unipd"
+title: "CLEF eHealth Task 1, Replication Track - (IMS) Unipd"
 author: Giorgio Maria Di Nunzio
 date: "5/12/2017"
 output: github_document

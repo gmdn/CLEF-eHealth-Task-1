@@ -1,4 +1,4 @@
-CLEF eHealth Task 2, Replication Track - (IMS) Unipd
+CLEF eHealth Task 1, Replication Track - (IMS) Unipd
 ================
 Giorgio Maria Di Nunzio
 5/12/2017
