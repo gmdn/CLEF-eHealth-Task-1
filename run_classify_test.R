@@ -4,12 +4,13 @@ library(tm)
 source("./utils/classify_binary.R")
 source("./utils/classify_tfidf.R")
 source("./utils/load_test_data_EN.R")
-source("./utils/load_dictionary.R")
+load("./index/american_dictionary.RData")
+#source("./utils/load_dictionary.R")
 
 # set the type of weighting scheme for this run, choose either "binary" or "tfidf"
 # you can comment/decomment one of the following lines
-#weight <- "binary"
-weight <- "tfidf"
+weight <- "binary"
+#weight <- "tfidf"
 
 # set run identifier
 if (weight == "binary") {
@@ -44,7 +45,7 @@ names(run) <- c("DocID", "YearCoded", "LineID", "RawText", "IntType", "IntValue"
 for(line in 1:nrow(run)) {
   # line <- 1
   if(line %% 1000 == 0)
-    print(line)
+    print(paste0("reading line : ", line, " of ", nrow(run)))
   
   # get line raw text
   line_rawtext <- run[line, "CleanedText"]

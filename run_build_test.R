@@ -4,8 +4,8 @@ source("./utils/normalize_line.R")
 
 # set the type of weighting scheme for this run, choose either "binary" or "tfidf"
 # you can comment/decomment one of the following lines
-#weight <- "binary"
-weight <- "tfidf"
+weight <- "binary"
+#weight <- "tfidf"
 
 # set run identifier
 if (weight == "binary") {
@@ -29,7 +29,7 @@ for (line in 1:nrow(causes_brutes_EN_test)) {
   
   # print output to check
   if(line %% 1000 == 0) {
-    print(paste0("reading line ", line))
+    print(paste0("reading line ", line, " of ", nrow(causes_brutes_EN_test)))
   }
   
   # read raw text line

@@ -1,8 +1,7 @@
 library(tm)
 library(NLP)
 
-source("./utils/load_dictionary.R")
-#head(american_dictionary$DiagnosisText[165014:165025])
+load("./index/american_dictionary.RData")
 
 # load corpus
 print("loading corpus...")

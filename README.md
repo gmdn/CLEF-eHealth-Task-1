@@ -51,47 +51,49 @@ After you decompress the zip file, in the "source" directory you will find the *
 
 1.  The first we need to do is to install the R packages that are required to run the source code. Write in the RStudio Console the following line (and press Enter)
 
-``` yaml
-source("./install_packages/install.R")
-```
+    ``` yaml
+    source("./install_packages/install.R")
+    ```
 
-1.  After setting up the packages, we need to index the dictionary of the training data.
+2.  After setting up the packages, we need to index the dictionary of the training data. First, we have to process the American dictionary file into a convenient data structure and correct some lines that have some issues. Write in the RStudio Coneolse the followin line (and press Enter)
 
-Write in the RStudio Console the following line (and press Enter)
+    ``` yaml
+    source("./utils/read_dictionary_reduced.R")
+    ```
 
-``` yaml
-source("./index/index_dictionary.R")
-```
+    You'll see a print output at each 10,000 lines. You may also see some warning prints like
 
-**IMPORTANT** If you are using the original version of the american dictionary that contains extra semicolons, you may encounter the following error during the scan of the file
+    ``` yaml
+    [1] "check line 9526, number of semicolons = 22"
+    [1] "check line 9541, number of semicolons = 22"
+    ```
 
-``` yaml
-Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : 
-scan() expected 'a real', got 'T918' 
-```
+    which means that these lines have more (or less) fields than expected. When the dictinoary has been read, you'll find two new files in the **index** directory: **american\_dictionary)reduced.csv** and **american\_dictionary.RData**. In order to produce the index of the dictionary, write in the RStudio Console the following line (and press Enter)
 
-If this is the case, please contat us (giorgiomaria dot dinunzio at unipd dot it) and we will provide the correct file.
+    ``` yaml
+    source("./index/index_dictionary.R")
+    ```
 
-At the end of this phase that will take a minute or so, you will have three new files in the **index** folder named **index\_EN\_binary.RData**, **index\_EN\_tf.RData**, and **index\_EN\_tfidf.RData**.
+    At the end of this second part, you will have three new files in the **index** folder named **index\_EN\_binary.RData**, **index\_EN\_tf.RData**, and **index\_EN\_tfidf.RData**.
 
-1.  Now we are ready to set up the test runs. Before running the **run\_build\_test.R** script, open it in the Source panel of RStudio and comment either line 7 or line 8 according to the type of weight you want to use for the run ("binary" or "tfidf").
+3.  Now we are ready to set up the test runs. Before running the **run\_build\_test.R** script, open it in the Source panel of RStudio and comment either line 7 or line 8 according to the type of weight you want to use for the run ("binary" or "tfidf").
 
-``` yaml
-5  # set the type of weighting scheme for this run, choose either "binary" or "tfidf"
-6  # you can comment/decomment one of the following lines
-7  weight <- "binary"
-8  #weight <- "tfidf"
-```
+    ``` yaml
+    5  # set the type of weighting scheme for this run, choose either "binary" or "tfidf"
+    6  # you can comment/decomment one of the following lines
+    7  weight <- "binary"
+    8  #weight <- "tfidf"
+    ```
 
-Once you have chosen the type of weight, run the script
+    Once you have chosen the type of weight, run the script
 
-``` yaml
-source("./run_build_test.R")
-```
+    ``` yaml
+    source("./run_build_test.R")
+    ```
 
-At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1\_binary.csv** or **Unipd-run2\_tfidf.csv**.
+    At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1\_binary.csv** or **Unipd-run2\_tfidf.csv**.
 
-1.  Finally, we can classify each line of the run we have prepared. As we did before, we need to set the type of weight before running the **run\_classify\_test.R** script. Comment line 10 or 11 as appropriate and then run
+4.  Finally, we can classify each line of the run we have prepared. As we did before, we need to set the type of weight before running the **run\_classify\_test.R** script. Comment line 10 or 11 as appropriate and then run
 
 ``` yaml
 source("./run_classify_test.R")
