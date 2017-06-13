@@ -49,7 +49,7 @@ data:
 
 ## Running Source Code
 
-After you decompress the zip file, in the "source" directory you will find the **english_raw.Rproj** file that contains the whole RStudio project that we are going to use. You can either double click on the file or open RSTudio and choose "Open Project..." from the File menu.
+After you decompress the zip file, in the "source" directory you will find the **ims_unipd_documentation.Rproj** file that contains the whole RStudio project that we are going to use. You can either double click on the file or open RSTudio and choose "Open Project..." from the File menu.
 
 1. The first we need to do is to install the R packages that are required to run the source code. Write in the RStudio Console the following line (and press Enter)
 ```yaml
@@ -66,7 +66,7 @@ You'll see a print output at each 10,000 lines. You may also see some warning pr
 [1] "check line 9541, number of semicolons = 22"
 ```
 which means that these lines have more (or less) fields than expected.
-When the dictinoary has been read, you'll find two new files in the **index** directory: **american_dictionary)reduced.csv** and **american_dictionary.RData**.
+When the dictinoary has been read, you'll find two new files in the **index** directory: **american_dictionary_reduced.csv** and **american_dictionary.RData**.
 In order to produce the index of the dictionary, write in the RStudio Console the following line (and press Enter)
 ```yaml
 source("./index/index_dictionary.R")
@@ -87,29 +87,19 @@ source("./run_build_test.R")
 At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1_binary.csv** or **Unipd-run2_tfidf.csv**.
 
 4. Finally, we can classify each line of the run we have prepared. As we did before, we need to set the type of weight before running the **run_classify_test.R** script. Comment line 10 or 11 as appropriate and then run 
-
 ```yaml
 source("./run_classify_test.R")
 ```
-
 When the scripts ends, you should see on the console a warning message:
 ```yaml
 There were 50 or more warnings (use warnings() to see the first 50)
 ```
-
 This is actually correct since, after submitting the official run, we discovered a bug in the code that prevented the correct use of the TfIdf weight. We annotated the source code of the file **run_classify_test.R** with a comment on line 22 and 61
-
 ```yaml
-
 22   #load("./index/index_EN_tfidf.RData") #### MISTAKE HERE!
 23   load("./index/index_EN_tf.RData")
 ...
 61    #icd <- classify_tfidf(tokens, tdm_tfidf, american_dictionary) #### MISTAKE HERE!
 62    icd <- classify_tfidf(tokens, tdm_tf, american_dictionary)
-
 ```
-
-At the end of the script, there will be a new file in the **runs** folder: a **Unipd-run1.csv** or **Unipd-run2.csv**. These are the files that we produced for the CLEF eHealth Task 1.
-
-
-
+At the end of the script, there will be new files in the **runs** folder: **Unipd-run1.csv** or **Unipd-run2.csv** are the files that we produced for the CLEF eHealth Task 1 while all the other files (for example **Unipd-run1_binary.csv** if you chose binary weights) are just temporary files.

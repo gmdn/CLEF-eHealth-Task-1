@@ -11,7 +11,7 @@ american_dictionary <- data.frame(DiagnosisText = rep("DiagnosisText", ad_EN),
 num_lines <- ad_EN
 
 # set file path
-file_path <- "../data/CLEFeHealth2017Task1_training_EN/raw/dictionary/AmericanDictionary.csv"
+file_path <- "./data/CLEFeHealth2017Task1_training_EN/raw/dictionary/AmericanDictionary.csv"
 
 if(file.exists("./index/american_dictionary_reduced.csv")) {
   stop("dictionary file already exists")
